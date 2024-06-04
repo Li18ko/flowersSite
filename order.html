@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказать цветы - Фиалка</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Фиалка - Уютный магазинчик цветов города Перми</h1>
+        <p>Магазин такой-то, Адрес: ул. Ленина, 50, Телефон: +7 (342) 123-45-67</p>
+        <nav>
+            <a href="index.html">Главная</a>
+        </nav>
+    </header>
+    
+    <section id="order-form">
+        <h2>Заказать цветы</h2>
+        <form action="submit_order.php" method="POST">
+            <label for="customerName">Имя:</label>
+            <input type="text" id="customerName" name="customerName" required><br>
+
+            <label for="phoneNumber">Телефон:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required><br>
+
+            <label for="email">Почта:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="address">Адрес:</label>
+            <input type="text" id="address" name="address" required><br>
+
+            <label for="productID">ID товара:</label>
+            <input type="text" id="productID" name="productID" required><br>
+
+            <label for="quantity">Количество:</label>
+            <input type="number" id="quantity" name="quantity" required><br>
+
+            <button type="submit">Отправить заказ</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>Фиалка - Уютный магазинчик цветов города Перми</p>
+    </footer>
+</body>
+</html>
