@@ -12,7 +12,7 @@ $productModel = new Product($mysqli);
 $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 $minPrice = isset($_GET['price-min']) ? trim($_GET['price-min']) : null;
 $maxPrice = isset($_GET['price-max']) ? trim($_GET['price-max']) : null;
-$sortOrder = isset($_GET['sort-order']) ? $_GET['sort-order'] : '';
+$sortOrder = isset($_GET['sort-order']) ? $_GET['sort-order'] : 'asc';
 $availability = isset($_GET['availability']) ? $_GET['availability'] : '';
 
 $total_products = $productModel->countProducts($searchTerm, $availability, $minPrice, $maxPrice);
@@ -51,28 +51,42 @@ $max_price = $productModel->getMaxPrice();
     
     <section class="search-section">
         <form action="index.php" method="get">
-            <input type="text" name="search" id="search" placeholder="Поиск цветов..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-            <label for="price-min">Цена от:</label>
-            <input type="number" name="price-min" id="price-min" placeholder="<?php echo $min_price ?>" value="<?php echo isset($_GET['price-min']) ? htmlspecialchars($_GET['price-min']) : ''; ?>">
-
-            <label for="price-max">Цена до:</label>
-            <input type="number" name="price-max" id="price-max" placeholder="<?php echo $max_price; ?>" value="<?php echo isset($_GET['price-max']) ? htmlspecialchars($_GET['price-max']) : ''; ?>">
-
-            <label for="sort-order">Сортировать по:</label>
-            <select name="sort-order" id="sort-order">
-                <option value="asc">Возрастанию цены</option>
-                <option value="desc">Убыванию цены</option>
-            </select>
-
-            <label for="availability">Наличие:</label>
-            <select name="availability" id="availability">
-                <option value="all">Все</option>
-                <option value="in-stock">В наличии</option>
-            </select>
+            <div class="form-group">
+                <input type="text" name="search" id="search" placeholder="Поиск цветов..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+            </div>
             
-            <button type="submit" id="apply-button">Применить</button>
+            <div class="form-group">
+                <label for="price-min">Цена от:</label>
+                <input type="number" name="price-min" id="price-min" placeholder="<?php echo $min_price ?>" value="<?php echo isset($_GET['price-min']) ? htmlspecialchars($_GET['price-min']) : ''; ?>">
+                
+                <label for="price-max">Цена до:</label>
+                <input type="number" name="price-max" id="price-max" placeholder="<?php echo $max_price; ?>" value="<?php echo isset($_GET['price-max']) ? htmlspecialchars($_GET['price-max']) : ''; ?>">
+            </div>
+            
+            <div class="form-group">
+                <label for="sort-order">Сортировать по:</label>
+                <select name="sort-order" id="sort-order">
+                    <option value="asc" <?php echo (isset($_GET['sort-order']) && $_GET['sort-order'] === 'asc') ? 'selected' : ''; ?>>Возрастанию цены</option>
+                    <option value="desc" <?php echo (isset($_GET['sort-order']) && $_GET['sort-order'] === 'desc') ? 'selected' : ''; ?>>Убыванию цены</option>
+                </select>
+
+                
+                <label for="availability">Наличие:</label>
+                <select name="availability" id="availability">
+                    <option value="all" <?php echo (isset($_GET['availability']) && $_GET['availability'] === 'all') ? 'selected' : ''; ?>>Все</option>
+                    <option value="in-stock" <?php echo (isset($_GET['availability']) && $_GET['availability'] === 'in-stock') ? 'selected' : ''; ?>>В наличии</option>
+                </select>
+
+            </div>
+            
+            <div class="form-group buttons">
+                <button type="submit" id="apply-button">Применить</button>
+                <button type="button" id="reset-button" onclick="window.location.href='index.php'">Сбросить</button>
+            </div>
         </form>
     </section>
+
+
 
     
     <section class="products-section">
@@ -98,34 +112,34 @@ $max_price = $productModel->getMaxPrice();
 
 
     <section class="pagination">
-    <?php
-    $total_pages = ceil($total_products / $products_per_page);
+        <?php
+        $total_pages = ceil($total_products / $products_per_page);
 
-    if ($total_pages > 1) {
-        $base_url = $_SERVER['PHP_SELF'] . "?";
+        if ($total_pages > 1) {
+            $base_url = $_SERVER['PHP_SELF'] . "?";
 
-        $queryParams = array(
-            'search' => $searchTerm,
-            'price-min' => $minPrice,
-            'price-max' => $maxPrice,
-            'sort-order' => $sortOrder,
-            'availability' => $availability
-        );
+            $queryParams = array(
+                'search' => $searchTerm,
+                'price-min' => $minPrice,
+                'price-max' => $maxPrice,
+                'sort-order' => $sortOrder,
+                'availability' => $availability
+            );
 
-        foreach ($queryParams as $key => $value) {
-            if (!empty($value)) {
-                $base_url .= "$key=$value&";
+            foreach ($queryParams as $key => $value) {
+                if (!empty($value)) {
+                    $base_url .= "$key=$value&";
+                }
+            }
+
+            $base_url .= "page=";
+
+            for ($i = 1; $i <= $total_pages; $i++) {
+                echo "<a href='{$base_url}$i'" . ($i == $page ? " class='active'" : "") . ">$i</a> ";
             }
         }
-
-        $base_url .= "page=";
-
-        for ($i = 1; $i <= $total_pages; $i++) {
-            echo "<a href='{$base_url}$i'" . ($i == $page ? " class='active'" : "") . ">$i</a> ";
-        }
-    }
-    ?>
-</section>
+        ?>
+    </section>
 
     
 
