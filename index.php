@@ -7,7 +7,8 @@ $products_per_page = 12;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $products_per_page;
 
-$productModel = Product::getInstance($mysqli);
+$database = Database::getInstance();
+$productModel = new Product($database->getConnection()); 
 
 $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 $minPrice = isset($_GET['price-min']) ? trim($_GET['price-min']) : null;

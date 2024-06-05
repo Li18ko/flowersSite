@@ -1,21 +1,13 @@
 <?php
 class Product
 {
-    private static $instance; 
     private $mysqli;
 
-    private function __construct($mysqli)
-    {
+    public function __construct($mysqli) {
         $this->mysqli = $mysqli;
     }
 
-    public static function getInstance($mysqli)
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new Product($mysqli);
-        }
-        return self::$instance;
-    }
+
     public function searchProducts($limit, $offset, $searchTerm, $sortOrder, $availability, $minPrice, $maxPrice)
     {
         $bindParams = array();

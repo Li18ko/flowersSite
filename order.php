@@ -2,7 +2,8 @@
 include 'db_connection.php';
 include 'product.php';
 
-$productModel = Product::getInstance($mysqli);
+$database = Database::getInstance();
+$productModel = new Product($database->getConnection()); 
 
 $products = $productModel->get_available_products();
 $productQuantities = $productModel->get_quantity();
@@ -37,7 +38,7 @@ $productQuantities = $productModel->get_quantity();
     
     <section id="order-form">
         <h2>Оформить заявку на заказ цветов</h2>
-        <form action="#" method="POST">
+        <form action="process_order.php" method="POST">
             <label for="customerName">Имя:</label>
             <input type="text" id="customerName" name="customerName" required><br>
 
