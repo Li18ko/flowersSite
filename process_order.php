@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     date_default_timezone_set('Europe/Moscow');
     $orderDate = date('Y-m-d H:i:s');
-    $stmt = $mysqli->prepare("INSERT INTO orders (customerID, orderDate) VALUES (?, ?)");
+    $stmt = $mysqli->prepare("INSERT INTO orders (customerID, orderDate, status) VALUES (?, ?, 'Подана')");
     $stmt->bind_param("is", $customerID, $orderDate);
     $stmt->execute();
     $orderID = $stmt->insert_id;

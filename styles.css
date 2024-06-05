@@ -28,6 +28,21 @@ header {
     text-align: center;
 }
 
+.header-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.header-container h1 {
+    margin-bottom: 15px;;
+}
+
 header h1 {
     margin: 0;
     color: #333333; 
@@ -213,14 +228,6 @@ input:focus, textarea:focus {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
-.success {
-    color: #009933; 
-}
-
-.error {
-    color: #ff0000; 
-}
-
 footer a:hover {
     text-decoration: underline; 
 }
@@ -255,7 +262,7 @@ footer a:hover {
     border: 1px solid #ff69b4;
 }
 
-#order-form {
+#order-form, #login {
     background-color: #ffe6f2;
     padding: 20px;
     margin: 20px;
@@ -263,13 +270,14 @@ footer a:hover {
     border-radius: 10px;
 }
 
-#order-form h2 {
+#order-form h2,
+#login h2 {
     margin-top: 0;
     text-align: center;
     color: #ff69b4;
 }
 
-#order-form form {
+#order-form form, #login form {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -277,7 +285,8 @@ footer a:hover {
     justify-content: center;
 }
 
-#order-form label {
+#order-form label,
+#login label {
     font-weight: bold;
     color: #333333;
 }
@@ -286,7 +295,9 @@ footer a:hover {
 #order-form input[type="number"],
 #order-form input[type="email"],
 #order-form input[type="tel"],
-#order-form select {
+#order-form select,
+#login input[type="text"],
+#login input[type="password"] {
     width: 100%;
     max-width: 400px;
     padding: 10px;
@@ -301,17 +312,21 @@ footer a:hover {
 #order-form input[type="number"]:focus,
 #order-form input[type="email"]:focus,
 #order-form input[type="tel"]:focus,
-#order-form select:focus {
+#order-form select:focus,
+#login input[type="text"]:focus,
+#login input[type="password"]:focus {
     border-color: #ff69b4;
 }
 
 
-#order-form .buttons {
+#order-form .buttons
+#login .buttons {
     display: flex;
     justify-content: space-between;
 }
 
-#order-form button {
+#order-form button,
+#login button {
     padding: 10px 20px;
     border: none;
     font-size: 16px;
@@ -321,12 +336,14 @@ footer a:hover {
     width: 25%;
 }
 
-#order-form button[type="submit"] {
+#order-form button[type="submit"],
+#login button[type="submit"] {
     background-color: #ff69b4;
     color: white;
 }
 
-#order-form button[type="submit"]:hover {
+#order-form button[type="submit"]:hover,
+#login button[type="submit"]:hover {
     background-color: #ff85c1;
 }
 
@@ -347,6 +364,130 @@ footer a:hover {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 313  px;
+    margin-bottom: 313px;
+}
+
+#admin {
+    background-color: #ffd3e6;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    bottom: 0;
+    color: #009933;
+    position: fixed;
+    width: 100%;
+}
+
+.request-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.request {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
+}
+
+.request h3, .request p{
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.request h4 {
+    margin-top: 20px;
+}
+
+.request p {
+    margin-bottom: 5px;
+}
+
+.request ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.request li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.request li p {
+    margin-left: 10px;
+}
+
+.product {
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.not-found {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    margin-top: 190px;
+    margin-bottom: 200px;
+}
+
+
+.product form {
+    margin: 10px 0;
+    margin-top: 20px;
+}
+
+.product form input[type="number"] {
+    width: 50px;
+    margin-right: 10px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.product form input[type="number"]:focus {
+    border-color: #ff69b4;
+}
+
+.product form button,
+.request form button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #ff69b4;
+    color: white;
+}
+
+.product form button,
+.request form button {
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    width: 25%;
+}
+
+.product form button[type="submit"],
+.request form button[type="submit"]{
+    background-color: #ff69b4;
+    color: white;
+}
+
+.product form button[type="submit"]:hover,
+.request form button[type="submit"]:hover{
+    background-color: #ff85c1;
 }
 
