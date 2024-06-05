@@ -1,13 +1,21 @@
 <?php
 class Product
 {
+    private static $instance; 
     private $mysqli;
 
-    public function __construct($mysqli)
+    private function __construct($mysqli)
     {
         $this->mysqli = $mysqli;
     }
 
+    public static function getInstance($mysqli)
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = new Product($mysqli);
+        }
+        return self::$instance;
+    }
     public function searchProducts($limit, $offset, $searchTerm, $sortOrder, $availability, $minPrice, $maxPrice)
     {
         $bindParams = array();
@@ -135,5 +143,22 @@ class Product
 
         return $row['max_price'];
     }
+
+    public function get_available_products(){
+        $result = $this->mysqli->query("SELECT products.productID, products.name, products.price, stocks.quantity 
+        FROM products JOIN stocks ON products.productID = stocks.productID WHERE stocks.quantity > 0");
+
+        return $result;
+    }
+
+    public function get_quantity(){
+        $productQuantities = array();
+        $result = $this->mysqli->query("SELECT products.productID, stocks.quantity FROM products JOIN stocks ON products.productID = stocks.productID WHERE stocks.quantity > 0");
+        while ($row = mysqli_fetch_assoc($result)) {
+            $productQuantities[$row['productID']] = $row['quantity'];
+        }
+        return $productQuantities;
+    }
+
 }
 ?>

@@ -1,13 +1,13 @@
 <?php
 include 'db_connection.php';
-include 'Product.php';
+include 'product.php';
 
 $products_per_page = 12;
 
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $products_per_page;
 
-$productModel = new Product($mysqli);
+$productModel = Product::getInstance($mysqli);
 
 $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 $minPrice = isset($_GET['price-min']) ? trim($_GET['price-min']) : null;
@@ -43,7 +43,7 @@ $max_price = $productModel->getMaxPrice();
             <h3>Уютный магазинчик цветов города Перми</h3>
             <p>Адрес: ул. Ленина, 50, Телефон: +7 (342) 123-45-67</p>
             <nav>
-                <a href="order.html">Заказать цветы</a>
+                <a href="order.php">Заказать цветы</a>
             </nav>
         </div>
     
@@ -146,8 +146,6 @@ $max_price = $productModel->getMaxPrice();
     <footer>
         <p>Фиалка - Уютный магазинчик цветов города Перми</p>
     </footer>
-
-    <script src="script.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

@@ -135,7 +135,6 @@ nav a {
     flex-wrap: wrap;
 }
 
-
 .product-card {
     background-color: #ffffff; 
     padding: 20px;
@@ -190,18 +189,6 @@ nav a {
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
-}
-
-
-#order-form {
-    background-color: #ffe6f2;
-    padding: 20px;
-    margin: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#order-form h2 {
-    margin-top: 0;
 }
 
 footer {
@@ -267,4 +254,90 @@ footer a:hover {
     color: white;
     border: 1px solid #ff69b4;
 }
+
+#order-form {
+    background-color: #ffe6f2;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#order-form h2 {
+    margin-top: 0;
+    text-align: center;
+    color: #ff69b4;
+}
+
+#order-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+#order-form label {
+    font-weight: bold;
+    color: #333333;
+}
+
+#order-form input[type="text"],
+#order-form input[type="number"],
+#order-form input[type="email"],
+#order-form input[type="tel"],
+#order-form select {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+#order-form input[type="text"]:focus,
+#order-form input[type="number"]:focus,
+#order-form input[type="email"]:focus,
+#order-form input[type="tel"]:focus,
+#order-form select:focus {
+    border-color: #ff69b4;
+}
+
+
+#order-form .buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+#order-form button {
+    padding: 10px 20px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    width: 25%;
+}
+
+#order-form button[type="submit"] {
+    background-color: #ff69b4;
+    color: white;
+}
+
+#order-form button[type="submit"]:hover {
+    background-color: #ff85c1;
+}
+
+#order-form button[onclick="addProductField()"] {
+    background-color: #ddd;
+    color: #333;
+    margin-top: 15px;
+}
+
+#order-form button[onclick="addProductField()"]:hover {
+    background-color: #ccc;
+}
+
 
