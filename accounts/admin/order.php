@@ -9,7 +9,7 @@ class Order
 
     public function showOrder() {
         $sql = "SELECT customers.name, customers.phoneNumber, customers.email, customers.address, orders.orderID, orders.orderDate FROM customers
-                JOIN orders ON customers.customerID = orders.customerID WHERE orders.status='Подана' ORDER BY orders.orderDate DESC";
+                JOIN orders ON customers.customerID = orders.customerID WHERE orders.status='Подана' ORDER BY orders.orderDate ASC";
 
         $stmt = $this->mysqli->prepare($sql);
         $stmt->execute();
@@ -38,9 +38,9 @@ class Order
         $stmt->bind_param("i", $orderID);
         $stmt->execute();
 
-        $sql = "UPDATE stocks s
-                JOIN order_items oi ON s.productID = oi.productID
-                SET s.quantity = s.quantity - oi.quantity
+        $sql = "UPDATE products p
+                JOIN order_items oi ON p.productID = oi.productID
+                SET p.quantity = p.quantity - oi.quantity
                 WHERE oi.orderID = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("i", $orderID);
@@ -69,7 +69,7 @@ class Order
     }
 
     public function getProductAvailability($productID) {
-        $sql = "SELECT quantity FROM stocks WHERE productID = ?";
+        $sql = "SELECT quantity FROM products WHERE productID = ?";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("i", $productID);
         $stmt->execute();

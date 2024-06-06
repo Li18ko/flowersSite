@@ -13,9 +13,8 @@ class Product
         $bindParams = array();
         $bindTypes = '';
 
-        $sql = "SELECT products.name, products.imageURL, products.description, products.price, stocks.quantity 
-                FROM products 
-                JOIN stocks ON products.productID = stocks.productID";
+        $sql = "SELECT products.name, products.imageURL, products.description, products.price, products.quantity 
+                FROM products";
 
         $conditions = array();
 
@@ -40,7 +39,7 @@ class Product
         }
 
         if ($availability === 'in-stock') {
-            $conditions[] = "stocks.quantity > 0";
+            $conditions[] = "products.quantity > 0";
         }
 
         if (!empty($conditions)) {
@@ -75,7 +74,7 @@ class Product
         $bindParams = array();
         $bindTypes = '';
 
-        $sql = "SELECT COUNT(*) as total FROM products JOIN stocks ON products.productID = stocks.productID";
+        $sql = "SELECT COUNT(*) as total FROM products";
 
         $conditions = array();
 
@@ -100,7 +99,7 @@ class Product
         }
 
         if ($availability === 'in-stock') {
-            $conditions[] = "stocks.quantity > 0";
+            $conditions[] = "products.quantity > 0";
         }
 
         if (!empty($conditions)) {
@@ -137,15 +136,15 @@ class Product
     }
 
     public function get_available_products(){
-        $result = $this->mysqli->query("SELECT products.productID, products.name, products.price, stocks.quantity 
-        FROM products JOIN stocks ON products.productID = stocks.productID WHERE stocks.quantity > 0");
+        $result = $this->mysqli->query("SELECT products.productID, products.name, products.price, products.quantity 
+        FROM products WHERE products.quantity > 0");
 
         return $result;
     }
 
     public function get_quantity(){
         $productQuantities = array();
-        $result = $this->mysqli->query("SELECT products.productID, stocks.quantity FROM products JOIN stocks ON products.productID = stocks.productID WHERE stocks.quantity > 0");
+        $result = $this->mysqli->query("SELECT products.productID, products.quantity FROM products WHERE products.quantity > 0");
         while ($row = mysqli_fetch_assoc($result)) {
             $productQuantities[$row['productID']] = $row['quantity'];
         }
